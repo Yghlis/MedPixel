@@ -83,7 +83,7 @@ WA.onInit().then(() => {
         console.log('Player tags:', playerTags);
 
         WA.ui.modal.openModal({
-            title: "Bibliothèque virtuelle",
+            title: "WorkAdventure website",
             src: 'http://154.56.57.33/',
             allow: "fullscreen",
             position: "right",

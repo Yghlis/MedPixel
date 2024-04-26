@@ -82,13 +82,27 @@ WA.onInit().then(() => {
 
         console.log('Player tags:', playerTags);
 
-        WA.ui.modal.openModal({
-            title: "Bibliothèque virtuelle",
-            src: 'http://154.56.57.33/',
-            allow: "fullscreen",
-            position: "right",
-            allowApi: true
-        });
+        if (!playerTags.includes('administrateur') && !playerTags.includes('VIP_neurologie')) {
+            console.log('Access denied to the jitsiMeetingRoom. You do not have the "admin" role.');
+
+            let teleportX = lastPosition.x;
+            let teleportY = lastPosition.y;
+            switch (lastDirection) {
+                case 'down': teleportY -= 1; break;
+                case 'up': teleportY += 1; break;
+                case 'left': teleportX += 1; break;
+                case 'right': teleportX -= 1; break;
+            }
+            await WA.player.teleport(teleportX, teleportY);
+
+            WA.ui.displayActionMessage({
+                message: "Vous n'avez pas le role nécéssaire pour accéder à la zone neurologie, si le problème persiste veuillez contacter un administrateur",
+                callback: () => console.log('The player has confirmed the message.'),
+                type: "warning",
+            });
+        } else {
+            console.log('Welcome to the jitsiMeetingRoom!');
+        }
     });
 
     WA.room.area.onEnter('jitsiChillZone').subscribe(async () => {
