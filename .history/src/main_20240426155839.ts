@@ -83,11 +83,11 @@ WA.onInit().then(() => {
         console.log('Player tags:', playerTags);
 
         WA.ui.modal.openModal({
-            title: "Bibliothèque virtuelle",
-            src: 'http://154.56.57.33/',
+            title: "WorkAdventure website",
+            src: 'https://workadventu.re',
             allow: "fullscreen",
             position: "right",
-            allowApi: true
+            allowApi
         });
     });
 

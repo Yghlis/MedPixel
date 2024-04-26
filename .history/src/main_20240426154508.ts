@@ -76,21 +76,6 @@ WA.onInit().then(() => {
         }
     });
 
-    WA.room.area.onEnter('book').subscribe(async () => {
-        console.log(`The player ${WA.player.name} has entered the zone.`);
-        const playerTags = WA.player.tags; // Récupérer les tags du joueur
-
-        console.log('Player tags:', playerTags);
-
-        WA.ui.modal.openModal({
-            title: "Bibliothèque virtuelle",
-            src: 'http://154.56.57.33/',
-            allow: "fullscreen",
-            position: "right",
-            allowApi: true
-        });
-    });
-
     WA.room.area.onEnter('jitsiChillZone').subscribe(async () => {
         console.log(`The player ${WA.player.name} has entered the zone.`);
         const playerTags = WA.player.tags; // Récupérer les tags du joueur
