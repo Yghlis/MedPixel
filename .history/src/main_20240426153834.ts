@@ -67,7 +67,7 @@ WA.onInit().then(() => {
             await WA.player.teleport(teleportX, teleportY);
 
             WA.ui.displayActionMessage({
-                message: "Vous n'avez pas le role nécéssaire pour accéder à la zone neurologie, si le problème persiste veuillez contacter un administrateur",
+                message: "You cannot access this conference, please contact an administrator if the problem persists",
                 callback: () => console.log('The player has confirmed the message.'),
                 type: "warning",
             });
@@ -76,7 +76,7 @@ WA.onInit().then(() => {
         }
     });
 
-    WA.room.area.onEnter('jitsiChillZone').subscribe(async () => {
+    WA.room.area.onEnter('jitsiMeetingRoom').subscribe(async () => {
         console.log(`The player ${WA.player.name} has entered the zone.`);
         const playerTags = WA.player.tags; // Récupérer les tags du joueur
 
@@ -96,36 +96,7 @@ WA.onInit().then(() => {
             await WA.player.teleport(teleportX, teleportY);
 
             WA.ui.displayActionMessage({
-                message: "Vous n'avez pas le role nécéssaire pour accéder à la zone neurologie, si le problème persiste veuillez contacter un administrateur",
-                callback: () => console.log('The player has confirmed the message.'),
-                type: "warning",
-            });
-        } else {
-            console.log('Welcome to the jitsiMeetingRoom!');
-        }
-    });
-
-    WA.room.area.onEnter('from-conference').subscribe(async () => {
-        console.log(`The player ${WA.player.name} has entered the zone.`);
-        const playerTags = WA.player.tags; // Récupérer les tags du joueur
-
-        console.log('Player tags:', playerTags);
-
-        if (!playerTags.includes('administrateur') && !playerTags.includes('VIP_neurologie')) {
-            console.log('Access denied to the jitsiMeetingRoom. You do not have the "admin" role.');
-
-            let teleportX = lastPosition.x;
-            let teleportY = lastPosition.y;
-            switch (lastDirection) {
-                case 'down': teleportY -= 1; break;
-                case 'up': teleportY += 1; break;
-                case 'left': teleportX += 1; break;
-                case 'right': teleportX -= 1; break;
-            }
-            await WA.player.teleport(teleportX, teleportY);
-
-            WA.ui.displayActionMessage({
-                message: "Vous n'avez pas le role nécéssaire pour accéder à la zone neurologie, si le problème persiste veuillez contacter un administrateur",
+                message: "You cannot access this conference, please contact an administrator if the problem persists",
                 callback: () => console.log('The player has confirmed the message.'),
                 type: "warning",
             });

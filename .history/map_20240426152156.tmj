@@ -478,7 +478,7 @@
                  "y":512
                 }, 
                 {
-                 "height":76.7721885699236,
+                 "height":32,
                  "id":19,
                  "name":"from-conference",
                  "properties":[
@@ -490,9 +490,9 @@
                  "rotation":0,
                  "type":"area",
                  "visible":true,
-                 "width":58.3365815117198,
-                 "x":37.6634184882802,
-                 "y":499.227811430076
+                 "width":32,
+                 "x":64,
+                 "y":544
                 }, 
                 {
                  "height":0,

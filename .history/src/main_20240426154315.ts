@@ -67,7 +67,7 @@ WA.onInit().then(() => {
             await WA.player.teleport(teleportX, teleportY);
 
             WA.ui.displayActionMessage({
-                message: "Vous n'avez pas le role nécéssaire pour accéder à la zone neurologie, si le problème persiste veuillez contacter un administrateur",
+                message: "You cannot access this conference, please contact an administrator if the problem persists",
                 callback: () => console.log('The player has confirmed the message.'),
                 type: "warning",
             });
@@ -125,7 +125,7 @@ WA.onInit().then(() => {
             await WA.player.teleport(teleportX, teleportY);
 
             WA.ui.displayActionMessage({
-                message: "Vous n'avez pas le role nécéssaire pour accéder à la zone neurologie, si le problème persiste veuillez contacter un administrateur",
+                message: "You cannot access this conference, please contact an administrator if the problem persists",
                 callback: () => console.log('The player has confirmed the message.'),
                 type: "warning",
             });

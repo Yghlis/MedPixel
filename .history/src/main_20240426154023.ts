@@ -67,7 +67,7 @@ WA.onInit().then(() => {
             await WA.player.teleport(teleportX, teleportY);
 
             WA.ui.displayActionMessage({
-                message: "Vous n'avez pas le role nécéssaire pour accéder à la zone neurologie, si le problème persiste veuillez contacter un administrateur",
+                message: "You cannot access this conference, please contact an administrator if the problem persists",
                 callback: () => console.log('The player has confirmed the message.'),
                 type: "warning",
             });
@@ -96,7 +96,7 @@ WA.onInit().then(() => {
             await WA.player.teleport(teleportX, teleportY);
 
             WA.ui.displayActionMessage({
-                message: "Vous n'avez pas le role nécéssaire pour accéder à la zone neurologie, si le problème persiste veuillez contacter un administrateur",
+                message: "You cannot access this conference, please contact an administrator if the problem persists",
                 callback: () => console.log('The player has confirmed the message.'),
                 type: "warning",
             });
@@ -105,7 +105,7 @@ WA.onInit().then(() => {
         }
     });
 
-    WA.room.area.onEnter('from-conference').subscribe(async () => {
+    WA.room.area.onEnter('jitsiChillZone').subscribe(async () => {
         console.log(`The player ${WA.player.name} has entered the zone.`);
         const playerTags = WA.player.tags; // Récupérer les tags du joueur
 
@@ -125,7 +125,7 @@ WA.onInit().then(() => {
             await WA.player.teleport(teleportX, teleportY);
 
             WA.ui.displayActionMessage({
-                message: "Vous n'avez pas le role nécéssaire pour accéder à la zone neurologie, si le problème persiste veuillez contacter un administrateur",
+                message: "You cannot access this conference, please contact an administrator if the problem persists",
                 callback: () => console.log('The player has confirmed the message.'),
                 type: "warning",
             });

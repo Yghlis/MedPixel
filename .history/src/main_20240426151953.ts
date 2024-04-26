@@ -5,10 +5,11 @@ import { bootstrapExtra } from "@workadventure/scripting-api-extra";
 console.log('Script started successfully');
 
 
-let lastPosition = { x: 0, y: 0 }; 
-let lastDirection = 'down'; 
+let lastPosition = { x: 0, y: 0 };  // Initialiser la dernière position connue
+let lastDirection = 'down'; // Initialiser la dernière direction connue
 let cguWebsite: any;
 
+// Waiting for the API to be ready
 WA.onInit().then(() => {
     console.log('Scripting API ready');
     console.log('CA MARCHE')
@@ -33,6 +34,7 @@ WA.onInit().then(() => {
         cgu = website;
       });
  
+    // Écoute les messages envoyés par les iframes
     window.addEventListener('message', (event) => {
         if (event.data.action === 'closeCGU') {
             if (cguWebsite) {
@@ -42,18 +44,21 @@ WA.onInit().then(() => {
         }
     });
 
+    // Track player's movement to determine the last known position and direction
     WA.player.onPlayerMove((moveData) => {
         lastPosition = { x: moveData.x, y: moveData.y };
         lastDirection = moveData.direction;
     });
 
+
+    // Accès à la salle de réunion Jitsi
     WA.room.area.onEnter('jitsiMeetingRoom').subscribe(async () => {
         console.log(`The player ${WA.player.name} has entered the zone.`);
         const playerTags = WA.player.tags; // Récupérer les tags du joueur
 
         console.log('Player tags:', playerTags);
 
-        if (!playerTags.includes('administrateur') && !playerTags.includes('VIP_neurologie')) {
+        if (!playerTags.includes('administrateur')) {
             console.log('Access denied to the jitsiMeetingRoom. You do not have the "admin" role.');
 
             let teleportX = lastPosition.x;
@@ -67,65 +72,7 @@ WA.onInit().then(() => {
             await WA.player.teleport(teleportX, teleportY);
 
             WA.ui.displayActionMessage({
-                message: "Vous n'avez pas le role nécéssaire pour accéder à la zone neurologie, si le problème persiste veuillez contacter un administrateur",
-                callback: () => console.log('The player has confirmed the message.'),
-                type: "warning",
-            });
-        } else {
-            console.log('Welcome to the jitsiMeetingRoom!');
-        }
-    });
-
-    WA.room.area.onEnter('jitsiChillZone').subscribe(async () => {
-        console.log(`The player ${WA.player.name} has entered the zone.`);
-        const playerTags = WA.player.tags; // Récupérer les tags du joueur
-
-        console.log('Player tags:', playerTags);
-
-        if (!playerTags.includes('administrateur') && !playerTags.includes('VIP_neurologie')) {
-            console.log('Access denied to the jitsiMeetingRoom. You do not have the "admin" role.');
-
-            let teleportX = lastPosition.x;
-            let teleportY = lastPosition.y;
-            switch (lastDirection) {
-                case 'down': teleportY -= 1; break;
-                case 'up': teleportY += 1; break;
-                case 'left': teleportX += 1; break;
-                case 'right': teleportX -= 1; break;
-            }
-            await WA.player.teleport(teleportX, teleportY);
-
-            WA.ui.displayActionMessage({
-                message: "Vous n'avez pas le role nécéssaire pour accéder à la zone neurologie, si le problème persiste veuillez contacter un administrateur",
-                callback: () => console.log('The player has confirmed the message.'),
-                type: "warning",
-            });
-        } else {
-            console.log('Welcome to the jitsiMeetingRoom!');
-        }
-    });
-
-    WA.room.area.onEnter('from-conference').subscribe(async () => {
-        console.log(`The player ${WA.player.name} has entered the zone.`);
-        const playerTags = WA.player.tags; // Récupérer les tags du joueur
-
-        console.log('Player tags:', playerTags);
-
-        if (!playerTags.includes('administrateur') && !playerTags.includes('VIP_neurologie')) {
-            console.log('Access denied to the jitsiMeetingRoom. You do not have the "admin" role.');
-
-            let teleportX = lastPosition.x;
-            let teleportY = lastPosition.y;
-            switch (lastDirection) {
-                case 'down': teleportY -= 1; break;
-                case 'up': teleportY += 1; break;
-                case 'left': teleportX += 1; break;
-                case 'right': teleportX -= 1; break;
-            }
-            await WA.player.teleport(teleportX, teleportY);
-
-            WA.ui.displayActionMessage({
-                message: "Vous n'avez pas le role nécéssaire pour accéder à la zone neurologie, si le problème persiste veuillez contacter un administrateur",
+                message: "You cannot access this conference, please contact an administrator if the problem persists",
                 callback: () => console.log('The player has confirmed the message.'),
                 type: "warning",
             });
@@ -143,7 +90,7 @@ WA.onInit().then(() => {
             console.log('Button clicked', event);
             WA.ui.modal.openModal({
                 title: 'ash',
-                src: 'http://localhost:5173/src/introduction.html',
+                src: 'http://localhost:5173/src/ash.html',
                 allow: 'fullscreen',  
                 position: 'center',  
                 allowApi: true,
@@ -152,26 +99,27 @@ WA.onInit().then(() => {
         }
     });
 
+   // Récupérer les tags du joueur
 const playerTags = WA.player.tags;
 
 
 if (playerTags.includes('VIP_oncologie')) {
-    
+    // Définir la couleur de l'outline en #9683EC
     WA.player.setOutlineColor(150, 131, 236);
 }
-
+// Vérifier si le joueur possède le tag VIP_cardiologie
 else if (playerTags.includes('VIP_cardiologie')) {
-   
+    // Définir la couleur de l'outline en #B40808
     WA.player.setOutlineColor(180, 8, 8);
 }
-
+// Vérifier si le joueur possède le tag VIP_neurologie
 else if (playerTags.includes('VIP_neurologie')) {
-   
+    // Définir la couleur de l'outline en #1C06A2
     WA.player.setOutlineColor(28, 6, 162);
 }
 
 
-   
+    // Bootstrap the Scripting API Extra library
     bootstrapExtra().then(() => {
         console.log('Scripting API Extra ready');
     }).catch(e => console.error(e));
