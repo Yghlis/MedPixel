@@ -1,4 +1,3 @@
-// @ts-nocheck
 /// <reference types="@workadventure/iframe-api-typings" />
 
 import { bootstrapExtra } from "@workadventure/scripting-api-extra";
@@ -14,7 +13,7 @@ WA.onInit().then(() => {
     console.log('Scripting API ready');
     console.log('CA MARCHE')
 
-    let cgu;
+   
 
     WA.state.onVariableChange("Cgu").subscribe((newEventData) => {
         if (newEventData) {
